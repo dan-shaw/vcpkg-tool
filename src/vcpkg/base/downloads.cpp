@@ -540,7 +540,9 @@ namespace vcpkg
             Strings::concat("https://api.github.com/repos/", github_repository, "/dependency-graph/snapshots"));
         cmd.string_arg("-d").string_arg(Json::stringify(snapshot));
         int code = 0;
+        Debug::println("testing dependency graph");
         auto result = cmd_execute_and_stream_lines(cmd, [&code](StringView line) {
+            Debug::println(line);
             if (Strings::starts_with(line, guid_marker))
             {
                 code = std::strtol(line.data() + guid_marker.size(), nullptr, 10);
@@ -549,6 +551,7 @@ namespace vcpkg
         });
 
         auto r = result.get();
+        Debug::println(std::to_string(r) + ";" + std::to_string(code));
         if (r && *r == 0 && code >= 200 && code < 300)
         {
             return true;
