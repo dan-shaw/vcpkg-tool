@@ -545,10 +545,7 @@ namespace vcpkg
             {
                 code = std::strtol(line.data() + guid_marker.size(), nullptr, 10);
             }
-            else
-            {
-                Debug::println(line);
-            }
+            Debug::println(line);
         });
 
         auto r = result.get();
