@@ -551,11 +551,17 @@ namespace vcpkg
         });
 
         auto r = result.get();
-        Debug::println(std::to_string(r) + ";" + std::to_string(code));
+        Debug::println(result.has_value());
+        Debug::println(code);
+        if(!result.has_value()) {
+            Debug::println("error");
+            Debug::println(result.error());
+        }
         if (r && *r == 0 && code >= 200 && code < 300)
         {
             return true;
         }
+        Debug::println(r);
         return false;
     }
 
