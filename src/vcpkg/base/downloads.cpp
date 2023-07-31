@@ -561,7 +561,6 @@ namespace vcpkg
         {
             return true;
         }
-        Debug::println(r);
         return false;
     }
 
